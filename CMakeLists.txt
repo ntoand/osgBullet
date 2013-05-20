@@ -70,7 +70,9 @@ include( FindBulletHelper )
 
 FIND_PACKAGE( osgWorks 2.0.0 REQUIRED )
 if( osgWorks_FOUND )
-    include( ${osgWorks_USE_FILE} )
+	if( ${osgWorks_USE_FILE} )
+    	include( ${osgWorks_USE_FILE} )
+	endif()
 endif()
 
 # OSGBULLET_USE_DOUBLE_PRECISION gets set to TRUE or FALSE in FindBulletHelper.cmake.
