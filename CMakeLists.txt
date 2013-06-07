@@ -219,7 +219,7 @@ endif(MSVC)
 
 # Install the CMake find script for osgWorks
 install( FILES "extra/FindosgBullet.cmake"
-    DESTINATION "share/${CMAKE_PROJECT_NAME}/extra"
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/extra"
     COMPONENT libosgbbullet
 )
 
