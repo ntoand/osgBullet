@@ -81,19 +81,26 @@ else()
 	message(FATAL_ERROR "Unable to find OpenSceneGraph libraries.")
 endif()
 
-include( FindBulletHelper )
+find_package ( Bullet )
+if ( BULLET_INCLUDE_DIRS )
+	message (STATUS "Adding Bullet include directories: ${BULLET_INCLUDE_DIRS}")
+	include_directories(${BULLET_INCLUDE_DIRS})
+else()
+	message(FATAL_ERROR "Unable to find Bullet include directory.")
+endif()
+if ( BULLET_LIBRARIES )
+	message(STATUS "Bullet libraries: ${BULLET_LIBRARIES}")
+	list(APPEND CMAKE_LIBRARY_PATH ${BULLET_LIBRARIES})
+else()
+	message(FATAL_ERROR "Unable to find Bullet libraries.")
+endif()
+
 
 FIND_PACKAGE( osgWorks 2.0.0 REQUIRED )
 if( osgWorks_FOUND )
 	if( ${osgWorks_USE_FILE} )
     	include( ${osgWorks_USE_FILE} )
 	endif()
-endif()
-
-# OSGBULLET_USE_DOUBLE_PRECISION gets set to TRUE or FALSE in FindBulletHelper.cmake.
-# If TRUE, add the BT double precision definition globally.
-if( OSGBULLET_USE_DOUBLE_PRECISION )
-    add_definitions( -DBT_USE_DOUBLE_PRECISION )
 endif()
 
 
@@ -257,8 +264,7 @@ include( CMakePackageConfigHelpers )
 
 configure_package_config_file( 
     osgBulletConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/lib/osgBulletConfig.cmake
-    INSTALL_DESTINATION lib
-    PATH_VARS OSGBULLET_USE_DOUBLE_PRECISION )
+    INSTALL_DESTINATION lib )
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib/osgBulletConfig.cmake 
               ${CMAKE_CURRENT_BINARY_DIR}/lib/osgBulletConfigVersion.cmake
