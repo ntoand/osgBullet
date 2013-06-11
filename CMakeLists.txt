@@ -81,7 +81,7 @@ else()
 	message(FATAL_ERROR "Unable to find OpenSceneGraph libraries.")
 endif()
 
-find_package ( Bullet )
+find_package ( Bullet REQUIRED )
 if ( BULLET_INCLUDE_DIRS )
 	message (STATUS "Adding Bullet include directories: ${BULLET_INCLUDE_DIRS}")
 	include_directories(${BULLET_INCLUDE_DIRS})
