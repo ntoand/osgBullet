@@ -65,7 +65,7 @@ ENDIF()
 
 INCLUDE( CMakeMacros )
 
-find_package( OpenSceneGraph 2.6.1 REQUIRED COMPONENTS osgGA osgText osgViewer osgSim osgDB osgUtil osg OpenThreads )
+find_package( OpenSceneGraph 2.6.1 REQUIRED COMPONENTS osgGA osgText osgViewer osgSim osgDB osgUtil osg OpenThreads osgShadow )
 if( OPENSCENEGRAPH_INCLUDE_DIRS )
 	message(STATUS "Adding OSG include directories: ${OPENSCENEGRAPH_INCLUDE_DIRS}")
 	include_directories(${OPENSCENEGRAPH_INCLUDE_DIRS})
