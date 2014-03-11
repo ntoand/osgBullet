@@ -178,6 +178,10 @@ btCollisionShape* ComputeShapeVisitor::createShape( osg::Node& node, const osg::
     default:
     {
         osg::notify( osg::FATAL ) << "ComputeShapeVisitor: Error, unknown shape type, using tri mesh." << std::endl;
+
+        // Reduce geometry.
+        reduce( *geodeCopy );
+        collision = osgbCollision::btTriMeshCollisionShapeFromOSG( geodeCopy );
         break;
     }
     }
