@@ -118,7 +118,7 @@ btCylinderShape* btCylinderCollisionShapeFromOSG( osg::Node* node, AXIS axis )
     return( shape );
 }
 
-btTriangleMeshShape* btTriMeshCollisionShapeFromOSG( osg::Node* node )
+static btTriangleMesh * nodeToBulletTriangleMesh( osg::Node* node )
 {
     ComputeTriMeshVisitor visitor;
     node->accept( visitor );
@@ -126,41 +126,32 @@ btTriangleMeshShape* btTriMeshCollisionShapeFromOSG( osg::Node* node )
     osg::Vec3Array* vertices = visitor.getTriMesh();
     if( vertices->size() < 3 )
     {
-        osg::notify( osg::WARN ) << "osgbCollision::btTriMeshCollisionShapeFromOSG, no triangles found" << std::endl;
+        osg::notify( osg::WARN ) << "osgbCollision::nodeToBulletTriangleMesh, no triangles found" << std::endl;
         return( NULL );
     }
 
     btTriangleMesh* mesh = new btTriangleMesh;
     for( size_t i = 0; i + 2 < vertices->size(); i += 3 )
     {
-        osg::Vec3& p1 = ( *vertices )[ i ];
-        osg::Vec3& p2 = ( *vertices )[ i + 1 ];
-        osg::Vec3& p3 = ( *vertices )[ i + 2 ];
+        const osg::Vec3& p1 = ( *vertices )[ i ];
+        const osg::Vec3& p2 = ( *vertices )[ i + 1 ];
+        const osg::Vec3& p3 = ( *vertices )[ i + 2 ];
         mesh->addTriangle( osgbCollision::asBtVector3( p1 ),
             osgbCollision::asBtVector3( p2 ), osgbCollision::asBtVector3( p3 ) );
     }
+	return mesh;
+}
 
+btTriangleMeshShape* btTriMeshCollisionShapeFromOSG( osg::Node* node )
+{
+    btTriangleMesh * mesh = nodeToBulletTriangleMesh(node);
     btBvhTriangleMeshShape* meshShape = new btBvhTriangleMeshShape( mesh, true );
     return( meshShape );
 }
 
 btConvexTriangleMeshShape* btConvexTriMeshCollisionShapeFromOSG( osg::Node* node )
 {
-    ComputeTriMeshVisitor visitor;
-    node->accept( visitor );
-
-    osg::Vec3Array* vertices = visitor.getTriMesh();
-
-    btTriangleMesh* mesh = new btTriangleMesh;
-    osg::Vec3 p1, p2, p3;
-    for( size_t i = 0; i + 2 < vertices->size(); i += 3 )
-    {
-        p1 = vertices->at( i );
-        p2 = vertices->at( i + 1 );
-        p3 = vertices->at( i + 2 );
-        mesh->addTriangle( osgbCollision::asBtVector3( p1 ),
-            osgbCollision::asBtVector3( p2 ), osgbCollision::asBtVector3( p3 ) );
-    }
+    btTriangleMesh* mesh = nodeToBulletTriangleMesh(node);
 
     btConvexTriangleMeshShape* meshShape = new btConvexTriangleMeshShape( mesh );
     return( meshShape );
