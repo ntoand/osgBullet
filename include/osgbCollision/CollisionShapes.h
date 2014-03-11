@@ -28,6 +28,7 @@
 #include <btBulletCollisionCommon.h>
 
 // Forward
+class btGImpactMeshShape;
 namespace osg {
     class Node;
     class Geometry;
@@ -86,6 +87,12 @@ OSGBCOLLISION_EXPORT btCylinderShape* btCylinderCollisionShapeFromOSG( osg::Node
 This function collects all triangles and transforms them by any Transforms in the subgraph rootes at \c node.
 */
 OSGBCOLLISION_EXPORT btTriangleMeshShape* btTriMeshCollisionShapeFromOSG( osg::Node* node );
+
+/** \brief Return a Bullet GImpact triangle mesh collision shape that approximates the specified OSG geometry.
+
+This function collects all triangles and transforms them by any Transforms in the subgraph rootes at \c node.
+*/
+OSGBCOLLISION_EXPORT btGImpactMeshShape* btGImpactTriMeshCollisionShapeFromOSG( osg::Node* node );
 
 /** \brief Return a Bullet convex triangle mesh collision shape that approximates the specified OSG geometry.
 

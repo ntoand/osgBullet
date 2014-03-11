@@ -19,6 +19,7 @@
  *************** <auto-copyright.pl END do not edit this line> ***************/
 
 #include <BulletCollision/CollisionShapes/btShapeHull.h>
+#include <BulletCollision/Gimpact/btGImpactShape.h>
 
 #include <osgbCollision/CollisionShapes.h>
 #include <osgbCollision/ComputeShapeVisitor.h>
@@ -146,6 +147,13 @@ btTriangleMeshShape* btTriMeshCollisionShapeFromOSG( osg::Node* node )
 {
     btTriangleMesh * mesh = nodeToBulletTriangleMesh(node);
     btBvhTriangleMeshShape* meshShape = new btBvhTriangleMeshShape( mesh, true );
+    return( meshShape );
+}
+
+btGImpactMeshShape* btGImpactTriMeshCollisionShapeFromOSG( osg::Node* node )
+{
+    btTriangleMesh * mesh = nodeToBulletTriangleMesh(node);
+    btGImpactMeshShape* meshShape = new btGImpactMeshShape( mesh );
     return( meshShape );
 }
 
