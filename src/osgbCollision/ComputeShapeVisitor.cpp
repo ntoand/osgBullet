@@ -121,7 +121,7 @@ btCollisionShape* ComputeShapeVisitor::createShape( osg::Node& node, const osg::
         return( NULL );
     }
     osg::Geode* geodeCopy = new osg::Geode( *( node.asGeode() ), osg::CopyOp::DEEP_COPY_ALL );
-    osgwTools::transform( m, geodeCopy->asGeode() );
+    osgwTools::transform( m, geodeCopy );
 
     btCollisionShape* collision( NULL );
     osg::Vec3 center;
