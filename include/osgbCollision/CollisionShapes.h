@@ -106,7 +106,7 @@ If \c shapeType is CYLINDER_SHAPE_PROXYTYPE, \c axis indicates the cylinder axis
 
 \param reductionLevel If \c shapeType is TRIANGLE_MESH_SHAPE_PROXYTYPE or
 CONVEX_TRIANGLEMESH_SHAPE_PROXYTYPE, a copy of the input geometry is reduced based on
-this value, which is in the range 0 (to reduction) to 3 (aggressive reduction). See
+this value, which is in the range 0 (no reduction) to 3 (aggressive reduction). See
 osgbDynamics::CreationRecord::ReductionLevel. Default is 0 (no reduction). */
 OSGBCOLLISION_EXPORT btCompoundShape* btCompoundShapeFromOSGGeodes( osg::Node* node,
     const BroadphaseNativeTypes shapeType, const osgbCollision::AXIS axis=Y,
