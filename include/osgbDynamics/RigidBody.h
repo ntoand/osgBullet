@@ -115,12 +115,17 @@ used to find nodes with a specific name.
 */
 /*@{*/
 
-
-/** \brief Creates a compound collision shape and rigid body from the CreationRecord data.
+/** \brief Creates a (compound) collision shape CreationRecord data.
 
 Uses the osgbCollision::ComputeShapeVisitor to create a btCompoundShape from CreationRecord::_sceneGraph.
-Currently, a shape per Geode is created. CreationRecord::_shapeType specifies the shape type created per Geode.
+Currently, a shape per Geode is created unless _overall is true. CreationRecord::_shapeType specifies the shape type created per Geode.
 If CreationRecord::_shapeType is CYLINDER_SHAPE_PROXYTYPE, CreationRecord::_axis specifies the cylinder major axis.
+*/
+OSGBDYNAMICS_EXPORT btCollisionShape* createCollisionShape( osgbDynamics::CreationRecord* cr );
+
+/** \brief Creates a (compound) collision shape and rigid body from the CreationRecord data.
+
+This uses createCollisionShape to do its dirty work before calling the two-parameter overload of createRigidBody.
 */
 OSGBDYNAMICS_EXPORT btRigidBody* createRigidBody( osgbDynamics::CreationRecord* cr );
 

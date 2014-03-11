@@ -34,8 +34,7 @@
 namespace osgbDynamics
 {
 
-
-btRigidBody* createRigidBody( osgbDynamics::CreationRecord* cr )
+btCollisionShape* createCollisionShape( osgbDynamics::CreationRecord* cr )
 {
     osg::Node* root = cr->_sceneGraph;
     if( root == NULL )
@@ -52,7 +51,7 @@ btRigidBody* createRigidBody( osgbDynamics::CreationRecord* cr )
     // CreationRecord::setCenterOfMass() to specify COM. Otherwise, this
     // function uses the bounding volume center as the COM.
     // Translate this subgraph so it is centered on the COM.
-    osg::notify( osg::DEBUG_FP ) << "createRigidBody: ";
+    osg::notify( osg::DEBUG_FP ) << "createCollisionShape: ";
     osg::Vec3 com;
     if( cr->_comSet )
     {
@@ -75,7 +74,7 @@ btRigidBody* createRigidBody( osgbDynamics::CreationRecord* cr )
     tempMtRoot->addChild( root );
 
 
-    osg::notify( osg::DEBUG_FP ) << "createRigidBody: Creating collision shape." << std::endl;
+    osg::notify( osg::DEBUG_FP ) << "createCollisionShape: Creating collision shape." << std::endl;
     btCollisionShape* shape( NULL );
     if( cr->_overall )
     {
@@ -118,10 +117,19 @@ btRigidBody* createRigidBody( osgbDynamics::CreationRecord* cr )
     }
     if( shape == NULL )
     {
-        osg::notify( osg::WARN ) << "createRigidBody: btCompoundShapeFromOSGGeodes returned NULL." << std::endl;
-        return( NULL );
+        osg::notify( osg::WARN ) << "createCollisionShape: Shape creation returned NULL." << std::endl;
     }
-
+	return shape;
+}
+btRigidBody* createRigidBody( osgbDynamics::CreationRecord* cr )
+{
+	osg::notify( osg::DEBUG_FP ) << "createRigidBody: Creating collision shape." << std::endl;
+	btCollisionShape * shape = createCollisionShape(cr);
+	if (!shape)
+	{
+		osg::notify( osg::WARN ) << "createRigidBody: Shape creation returned NULL." << std::endl;
+		return NULL;
+	}
     return( createRigidBody( cr, shape ) );
 }
 
