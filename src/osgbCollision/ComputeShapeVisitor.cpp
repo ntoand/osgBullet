@@ -29,6 +29,7 @@
 #include <osgbCollision/Utils.h>
 #include <osgwTools/AbsoluteModelTransform.h>
 
+#include <BulletCollision/Gimpact/btGImpactShape.h>
 
 namespace osgbCollision
 {
@@ -173,6 +174,15 @@ btCollisionShape* ComputeShapeVisitor::createShape( osg::Node& node, const osg::
     {
         // Do _not_ compute center of bounding sphere for tri meshes.
         collision = osgbCollision::btConvexHullCollisionShapeFromOSG( geodeCopy );
+        break;
+    }
+    case GIMPACT_SHAPE_PROXYTYPE:
+    {
+        // Do _not_ compute center of bounding sphere for GImpact tri meshes.
+
+        // Reduce geometry.
+        reduce( *geodeCopy );
+        collision = osgbCollision::btGImpactTriMeshCollisionShapeFromOSG( geodeCopy );
         break;
     }
     default:
