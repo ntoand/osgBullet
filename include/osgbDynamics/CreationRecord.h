@@ -106,6 +106,9 @@ struct OSGBDYNAMICS_EXPORT CreationRecord : public osg::Object
     */
     ReductionLevel _reductionLevel;
 
+	/** \brief Set to true to make a collision shape from the overall bounds,
+		rather than a compound shape built up from the subtree
+	*/
     bool _overall;
 };
 
