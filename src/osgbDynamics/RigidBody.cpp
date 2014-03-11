@@ -81,13 +81,11 @@ btCollisionShape* createCollisionShape( osgbDynamics::CreationRecord* cr )
         switch( cr->_shapeType )
         {
         case BOX_SHAPE_PROXYTYPE:
-            shape = osgbCollision::btCompoundShapeFromBounds( tempMtRoot.get(), BOX_SHAPE_PROXYTYPE );
-            break;
         case SPHERE_SHAPE_PROXYTYPE:
-            shape = osgbCollision::btCompoundShapeFromBounds( tempMtRoot.get(), SPHERE_SHAPE_PROXYTYPE );
+            shape = osgbCollision::btCompoundShapeFromBounds( tempMtRoot.get(), cr->_shapeType );
             break;
         case CYLINDER_SHAPE_PROXYTYPE:
-            shape = osgbCollision::btCompoundShapeFromBounds( tempMtRoot.get(), CYLINDER_SHAPE_PROXYTYPE, cr->_axis );
+            shape = osgbCollision::btCompoundShapeFromBounds( tempMtRoot.get(), cr->_shapeType, cr->_axis );
             break;
         case TRIANGLE_MESH_SHAPE_PROXYTYPE:
             shape = osgbCollision::btTriMeshCollisionShapeFromOSG( tempMtRoot.get() );
