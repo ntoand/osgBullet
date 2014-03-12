@@ -154,6 +154,10 @@ btGImpactMeshShape* btGImpactTriMeshCollisionShapeFromOSG( osg::Node* node )
 {
     btTriangleMesh * mesh = nodeToBulletTriangleMesh(node);
     btGImpactMeshShape* meshShape = new btGImpactMeshShape( mesh );
+	// Force updateBound to be called when needed.
+	// If this isn't called, then collisions simply don't work.
+	meshShape->postUpdate();
+
     return( meshShape );
 }
 
