@@ -157,8 +157,6 @@ btGImpactMeshShape* btGImpactTriMeshCollisionShapeFromOSG( osg::Node* node )
 	//http://bulletphysics.org/Bullet/BulletFull/classbtGImpactMeshShape.html
 	//updateBounds() needs to be called after creation according to the documentation
 	meshShape->updateBound();
-	//postUpdate() should be called for deformable meshes
-	//meshShape->postUpdate();
 
     return( meshShape );
 }
