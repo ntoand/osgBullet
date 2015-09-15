@@ -122,9 +122,9 @@ GLDebugDrawer::GLDebugDrawer()
     _hudCam->setProjectionMatrixAsOrtho( 0., 1., 0., 1., -1., 1. );
     _group->addChild( _hudCam.get() );
 
-    _chart = new osgbCollision::Chart;
-    _chart->createChart();
-    _hudCam->addChild( _chart->get() );
+    //_chart = new osgbCollision::Chart;
+    //_chart->createChart();
+    //_hudCam->addChild( _chart->get() );
 }
 GLDebugDrawer::~GLDebugDrawer()
 {
@@ -351,7 +351,7 @@ void GLDebugDrawer::EndDraw()
     if( _triVerts->size() )
         _triGeom->addPrimitiveSet( new osg::DrawArrays( GL_TRIANGLES, 0, _triVerts->size() ) );
 
-    _chart->setValue( _frame, _contacts );
+    //_chart->setValue( _frame, _contacts );
     _frame++;
 }
 ////////////////////////////////////////////////////////////////////////////////
